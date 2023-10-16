@@ -6,11 +6,10 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.Entity;
 import org.hibernate.annotations.Table;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Transient;
+
+import javax.persistence.*;
 import javax.validation.constraints.Size;
+import java.util.Set;
 
 @Entity
 @Table(appliesTo = "m_user")
@@ -32,5 +31,6 @@ public class User {
     @Transient
     private String passwordConfirm;
     private boolean is_actual;
-
+    @ManyToMany(fetch = FetchType.EAGER)
+    private Set<Role> roles;
 }
