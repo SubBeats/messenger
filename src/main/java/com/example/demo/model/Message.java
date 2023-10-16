@@ -11,4 +11,5 @@ import lombok.Setter;
 @Setter
 public class Message {
     private String name;
+    private boolean is_checked;
 }
