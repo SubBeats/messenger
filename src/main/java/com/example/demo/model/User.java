@@ -6,9 +6,11 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.Entity;
 import org.hibernate.annotations.Table;
-
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 import javax.persistence.*;
 import javax.validation.constraints.Size;
+import java.util.Collection;
 import java.util.Set;
 
 @Entity
@@ -17,12 +19,12 @@ import java.util.Set;
 @AllArgsConstructor
 @Getter
 @Setter
-public class User {
+public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Size(min = 0,message = "Имя не может быть пустым")
-    private String firstName;
+    private String username;
     @Size(min = 0,message = "Фамилия не может быть пустым")
     private String secondName;
     private String lastNAme;
@@ -33,4 +35,29 @@ public class User {
     private boolean is_actual;
     @ManyToMany(fetch = FetchType.EAGER)
     private Set<Role> roles;
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return null;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return false;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return false;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return false;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return false;
+    }
 }
